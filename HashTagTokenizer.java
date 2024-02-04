@@ -7,6 +7,7 @@ public class HashTagTokenizer {
 		String hashTag = args[0];
 		String []dictionary = readDictionary("dictionary.txt");
 		breakHashTag(hashTag, dictionary);
+		
 	}
 
 	public static String[] readDictionary(String fileName) {
@@ -48,11 +49,12 @@ public class HashTagTokenizer {
 			String wordCheck = hashtag.substring(0, i);
 			if (existInDictionary(wordCheck, dictionary)) 
 				{ System.err.println(wordCheck);
-					breakHashTag(hashtag.substring(i), dictionary);
+					breakHashTag(hashtag.substring(i,N), dictionary);
 					return;
 				
 				}
         }
     }
+
 
 }
