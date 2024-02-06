@@ -2,11 +2,14 @@
 public class SpellChecker {
 
 	public static void main(String[] args) {
-		String word = args[0];
-		int threshold = Integer.parseInt(args[1]);
-		String[] dictionary = readDictionary("dictionary.txt");
-		String correction = spellChecker(word, threshold, dictionary);
-		System.out.println(correction);
+		String word = "hello";
+		String word2 = "hallo";
+		System.out.println(levenshtein(word, word2));
+		//String word = args[0];
+		//int threshold = Integer.parseInt(args[1]);
+		//String[] dictionary = readDictionary("dictionary.txt");
+		//String correction = spellChecker(word, threshold, dictionary);
+		//System.out.println(correction);
 	}
 
 	public static String tail(String str) {
@@ -37,15 +40,15 @@ public class SpellChecker {
 			return levenshtein(tail(w1), tail(w2));
 		}
 		else {
-			int cost = (word1.charAt(0) == word2.charAt(0)) ? 0 : 1;
+			//int cost = (word1.charAt(0) == word2.charAt(0)) ? 0 : 1;
 		// cost specifically relates to the substitution operation
 		
 		// one, two and three are the deletation, insertation and substitution
 			int deletation = levenshtein(tail(w1), w2);
 			int insertation = levenshtein(w1, tail(w2));
-			int substitution = levenshtein(tail(w1), tail(w2)) + cost;
+			int substitution = levenshtein(tail(w1), tail(w2)) ;
 		// calculates the minimum between the operations
-			return Math.min(deletation, Math.min(insertation, substitution));
+			return Math.min(deletation, Math.min(insertation, substitution)) +1;
 	}}
 
 	public static String[] readDictionary(String fileName) {
