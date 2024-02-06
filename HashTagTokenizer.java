@@ -45,16 +45,13 @@ public class HashTagTokenizer {
  
         int N = hashtag.length();
 
-        for (int i = 1; i <= N; i++) {
+        for (int i = 0; i < N; i++) {
 			String wordCheck = hashtag.substring(0, i);
-			if (existInDictionary(wordCheck, dictionary)) 
-				{ System.err.println(wordCheck);
+			if (existInDictionary(wordCheck, dictionary)) { 
+				System.out.println(wordCheck);;
 					breakHashTag(hashtag.substring(i,N), dictionary);
 					return;
 				
 				}
         }
-    }
-
-
-}
+	}}
