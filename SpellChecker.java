@@ -12,10 +12,7 @@ public class SpellChecker {
 	public static String tail(String str) {
 		// Your code goes here
 		String tail = str.substring(1);
-		if (tail.length() == 0) {
-			return "";
-
-		}
+		
 		return tail;
 	}
 
@@ -25,7 +22,6 @@ public class SpellChecker {
 		String w2 = word2.toLowerCase();
 		int lengthW1 = w1.length();
 		int lengthW2 = w2.length();
-		int count = 0;
 		if (word1.isEmpty() && word2.isEmpty()) {
 			return 0;
 		}
@@ -41,16 +37,15 @@ public class SpellChecker {
 			return levenshtein(tail(w1), tail(w2));
 		}
 		else {
+			int cost = (word1.charAt(0) == word2.charAt(0)) ? 0 : 1;
 		// cost specifically relates to the substitution operation
-		int cost = 1;
+		
 		// one, two and three are the deletation, insertation and substitution
-		int deletation = levenshtein(tail(w1), w2);
-		int insertation = levenshtein(w1, tail(w2));
-		int substitution = levenshtein(tail(w1), tail(w2)) + cost;
+			int deletation = levenshtein(tail(w1), w2);
+			int insertation = levenshtein(w1, tail(w2));
+			int substitution = levenshtein(tail(w1), tail(w2)) + cost;
 		// calculates the minimum between the operations
-		int min = Math.min(deletation, insertation);
-		int finalMin = Math.min(min, substitution);
-		return finalMin;
+			return Math.min(deletation, Math.min(insertation, substitution));
 	}}
 
 	public static String[] readDictionary(String fileName) {
@@ -74,12 +69,15 @@ public class SpellChecker {
 	for (int i = 0; i < dictionary.length; i++) {
 		int currentValue = levenshtein(word, dictionary[i]);
 		if (currentValue < bestValue) {
-		bestValue = currentValue;
-		bestMatch = dictionary[i];}
+			bestValue = currentValue;
+			bestMatch = dictionary[i];}
 			
-		}if (bestValue > threshold) {
+		}if (bestValue >= threshold) {
 			return bestMatch;
-		} else{ return word;} }
+		} else{
+			 return word;
+		} 
+		}
 			
 	}
 
